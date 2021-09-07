@@ -5,7 +5,7 @@ import hashlib
 import jwt
 
 from .store import UserStore
-from .schemas import AuthUserStored
+from .schemas import AuthUserBase, AuthUserStored
 
 
 class AuthProvider(object):
@@ -21,7 +21,6 @@ class AuthProvider(object):
     def add_user(self, username: str, password: str, scopes: List[str]) -> bool:
         salt = self._gen_salt()
         hashed_password = self._hash_password(password, salt)
-
         self.users.add_user(
             AuthUserStored(
                 username=username,
@@ -30,8 +29,18 @@ class AuthProvider(object):
                 scopes=scopes,
             )
         )
-
         return True
+
+    def update_user(self, user: AuthUserBase) -> bool:
+        stored_user = self.users.get_user(user.username)
+        if not stored_user:
+            return False
+        stored_user.password = self._hash_password(user.password, stored_user.salt)
+        self.users.update_user(stored_user)
+        return True
+
+    def delete_user(self, username: str):
+        return self.users.remove_user(username)
 
     @staticmethod
     def _hash_password(password: str, salt: bytes):

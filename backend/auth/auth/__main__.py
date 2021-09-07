@@ -2,7 +2,7 @@ import uvicorn
 
 from .api import app
 
-uvicorn.run(app)
+uvicorn.run(app, host="0.0.0.0")
 
 # from .provider import AuthProvider
 

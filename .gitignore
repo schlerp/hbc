@@ -32,6 +32,7 @@ _mailinglist
 .pytest_cache/
 .idea/
 docs/_build/
+venv/
 
 # Coverage reports
 htmlcov/
