@@ -9,3 +9,6 @@ class CompetitionEntry(pydantic.BaseModel):
     category: str
     subcategory: str
     notes: str
+
+    class Config:
+        orm_mode = True

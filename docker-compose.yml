@@ -7,30 +7,45 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-      - ./rabbitmq/data/:/var/lib/rabbitmq/
-      - ./rabbitmq/log/:/var/log/rabbitmq
+      - rabbitmq-data:/var/lib/rabbitmq
+      - rabbitmq-log:/var/log/rabbitmq
 
   auth:
     build:
       context: ./backend/auth
+    environment:
+      - API_PORT=${AUTH_PORT}
+    ports:
+      - ${AUTH_PORT}:${AUTH_PORT}
     container_name: auth
 
-  members:
+  profile:
     build:
-      context: ./backend/members
-    container_name: members
+      context: ./backend/profile
+    environment:
+      - API_PORT=${PROFILE_PORT}
+    ports:
+      - ${PROFILE_PORT}:${PROFILE_PORT}
+    container_name: profile
 
-  entries:
+  entry:
     build:
-      context: ./backend/entries
-    container_name: entries
+      context: ./backend/entry
+    environment:
+      - API_PORT=${ENTRY_PORT}
+    ports:
+      - ${ENTRY_PORT}:${ENTRY_PORT}
+    container_name: entry
 
-  competitions:
+  comp:
     build:
-      context: ./backend/competitions
-    container_name: competitions
+      context: ./backend/comp
+    environment:
+      - API_PORT=${COMP_PORT}
+    ports:
+      - ${COMP_PORT}:${COMP_PORT}
+    container_name: comp
 
-  gateway:
-    build:
-      context: ./backend/gateway
-    container_name: gateway
+volumes:
+  rabbitmq-data:
+  rabbitmq-log:

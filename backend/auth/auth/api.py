@@ -3,7 +3,11 @@ from fastapi import FastAPI, Depends
 
 from .provider import AuthProvider
 
-app = FastAPI()
+app = FastAPI(
+    title="HBC: Auth uService",
+    description="Provides authentication and authorization for the rest of the microservices using JWT's",
+    version="0.0.1",
+)
 auth_provider = AuthProvider()
 
 

@@ -7,6 +7,9 @@ class EntryProvider(object):
     def __init__(self):
         self._store = EntryStore()
 
+    def get_all(self) -> List[CompetitionEntry]:
+        return self._store.get_all()
+
     def get_entry(self, entry_id: int) -> CompetitionEntry:
         return self._store.get_entry(entry_id)
 
