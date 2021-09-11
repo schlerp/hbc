@@ -46,6 +46,18 @@ services:
       - ${COMP_PORT}:${COMP_PORT}
     container_name: comp
 
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      - AUTH_PORT=${AUTH_PORT}
+      - PROFILE_PORT=${PROFILE_PORT}
+      - ENTRY_PORT=${ENTRY_PORT}
+      - COMP_PORT=${COMP_PORT}
+    ports:
+      - 80:80
+    container_name: frontend
+
 volumes:
   rabbitmq-data:
   rabbitmq-log:

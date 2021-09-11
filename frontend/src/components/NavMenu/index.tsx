@@ -5,6 +5,7 @@ import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "../../hooks/useDimensions";
 import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
+// import { Button } from "../controls/Button";
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -32,15 +33,18 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     bottom: 0,
-    width: "300px",
+    width: "200px",
+    zIndex: 11,
   },
   background: {
     position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
-    width: "300px",
-    background: "#fff",
+    width: "200px",
+    background: theme.palette.secondary.main,
+    boxShadow: "0px 1px 3px 3px rgba(0,0,0,0.12)",
+    zIndex: 10,
   },
 }));
 
@@ -59,7 +63,11 @@ export const NavMenu = () => {
       className={classes.nav}
     >
       <motion.div className={classes.background} variants={sidebar} />
-      <Navigation />
+      {/* <Button label="Sign up" />
+      <p>
+        or <a href="/login">sign in</a> if you already have an account
+      </p> */}
+      <Navigation toggle={() => toggleOpen()} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   );

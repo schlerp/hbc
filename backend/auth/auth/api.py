@@ -1,7 +1,9 @@
 import os
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 from .provider import AuthProvider
+from .schemas import LoginRequest, AuthUserRegister
 
 app = FastAPI(
     title="HBC: Auth uService",
@@ -10,20 +12,40 @@ app = FastAPI(
 )
 auth_provider = AuthProvider()
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 async def get_prov():
     return auth_provider
 
 
-@app.get("/login")
-async def read_auth(
-    username: str, password: str, auth_prov: AuthProvider = Depends(get_prov)
+@app.post("/login")
+async def login(
+    login_details: LoginRequest, auth_prov: AuthProvider = Depends(get_prov)
 ):
-    return auth_prov.login(username, password, os.environ.get("SECRET_KEY", 123))
+    return auth_prov.login(
+        login_details.username,
+        login_details.password,
+        os.environ.get("SECRET_KEY", "123"),
+    )
 
 
 @app.post("/signup")
-async def add_user(
-    username: str, password: str, auth_prov: AuthProvider = Depends(get_prov)
+async def signup(
+    register_details: AuthUserRegister,
+    auth_prov: AuthProvider = Depends(get_prov),
 ):
-    return auth_prov.add_user(username, password, [])
+    return auth_prov.add_user(
+        register_details.username, register_details.password, register_details.email, []
+    )

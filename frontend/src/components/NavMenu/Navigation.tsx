@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "25px",
     position: "absolute",
     top: "100px",
-    width: "230px",
+    width: "150px",
+    zIndex: 20,
   },
 }));
 
@@ -22,13 +23,16 @@ const variants = {
   },
 };
 
-export const Navigation = () => {
+interface INavigationProps {
+  toggle: Function;
+}
+
+export const Navigation: React.FC<INavigationProps> = ({ toggle }) => {
   const classes = useStyles();
   return (
     <motion.ul variants={variants} className={classes.ul}>
-      <MenuItem text="" />
-      <MenuItem text="" />
-      <MenuItem text="" />
+      <MenuItem text="Sign up" href="/signup" toggle={toggle} />
+      <MenuItem text="Log in" href="/signin" toggle={toggle} />
     </motion.ul>
   );
 };

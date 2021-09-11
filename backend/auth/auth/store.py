@@ -1,6 +1,6 @@
 from typing import List
 
-from .schemas import AuthUserStored
+from .schemas import AuthUserStored, AuthUserRegister
 from .exceptions import UserExistsException, NoMatchingUserException
 
 
@@ -8,7 +8,7 @@ class UserStore(object):
     def __init__(self):
         self._store: List[AuthUserStored] = []
 
-    def add_user(self, user: AuthUserStored) -> bool:
+    def add_user(self, user: AuthUserRegister) -> bool:
         if self.get_user(user.username):
             raise UserExistsException
         self._store.append(user)

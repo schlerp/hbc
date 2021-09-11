@@ -1,6 +1,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   li: {
@@ -34,18 +35,29 @@ const variants = {
 interface MenuItemIface {
   text: string;
   href?: string;
+  toggle?: Function;
 }
 
-export const MenuItem: React.FC<MenuItemIface> = ({ text, href }) => {
+export const MenuItem: React.FC<MenuItemIface> = ({
+  text,
+  href = "#",
+  toggle,
+}) => {
   const classes = useStyles();
+  const handleClick = () => {
+    toggle();
+  };
   return (
-    <motion.li
-      variants={variants}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className={classes.li}
-    >
-      {text}
-    </motion.li>
+    <Link to={href}>
+      <motion.li
+        variants={variants}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className={classes.li}
+        onClick={handleClick}
+      >
+        {text}
+      </motion.li>
+    </Link>
   );
 };

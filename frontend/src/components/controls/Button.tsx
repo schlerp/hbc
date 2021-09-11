@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    width: "150px",
+    width: "100px",
     height: "50px",
     background: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText,
@@ -16,15 +16,16 @@ const useStyles = makeStyles((theme) => ({
 
 interface ButtonIface {
   label: string;
+  className?: any;
 }
 
-export const Button: React.FC<ButtonIface> = ({ label = "" }) => {
+export const Button: React.FC<ButtonIface> = ({ label = "", className }) => {
   const classes = useStyles();
   return (
     <motion.button
-      className={classes.button}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      className={`${classes.button} ${className}`}
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
     >
       {label}
     </motion.button>

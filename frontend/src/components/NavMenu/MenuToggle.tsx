@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     borderRadius: "50%",
     background: "transparent",
+    zIndex: 15,
   },
 }));
 
