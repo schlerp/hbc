@@ -1,5 +1,5 @@
 export const API_URL = "http://localhost:8001";
-export const USER_STORAGE_KEY = "user_token";
+export const USER_STORAGE_KEY = "current_user";
 
 const register = (username: string, email: string, password: string) => {
   return fetch(API_URL + "/signup", {
@@ -38,11 +38,12 @@ const login = (username: string, password: string) => {
       return response.json();
     })
     .then((json) => {
-      if (json.accessToken) {
+      if (json.token) {
         localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(json));
       }
       return json;
-    });
+    })
+    .catch((error) => console.log(error));
 };
 
 const logout = () => {

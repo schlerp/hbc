@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 from .provider import ProfileProvider
 from .schemas import UserProfile
@@ -11,12 +12,25 @@ app = FastAPI(
 )
 provider = ProfileProvider()
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 async def get_prov():
     return provider
 
 
-@app.get("/profile")
+@app.get("/{username}")
 async def get_profile(username: str, _prov: ProfileProvider = Depends(get_prov)):
     return _prov.get_profile(username)
 
@@ -35,6 +49,6 @@ async def update_profile(
     return _prov.update_profile(profile)
 
 
-@app.delete("/profile")
+@app.delete("/{username}")
 async def remove_profile(username: str, _prov: ProfileProvider = Depends(get_prov)):
     return _prov.remove_profile(username)

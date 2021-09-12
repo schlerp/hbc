@@ -4,5 +4,6 @@ export const config = {
   sitePalette: {
     primary: "#A4764F",
     secondary: "#F3B917",
+    info: "#F4E9CB",
   },
 };

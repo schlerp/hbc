@@ -4,6 +4,7 @@ import { TextField } from "@material-ui/core";
 import Button from "./controls/Button";
 import authClient from "../services/auth";
 import { config } from "../config";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -26,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignInPage = () => {
+interface ISignInPageProps {
+  setLoggedIn: Function;
+}
+
+export const SignInPage: React.FC<ISignInPageProps> = ({ setLoggedIn }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,6 +44,8 @@ export const SignInPage = () => {
     const username = target.username.value;
     const password = target.password.value;
     await authClient.login(username, password);
+    setLoggedIn(true);
+    history.push(`/profile/${username}`);
   }
 
   return (

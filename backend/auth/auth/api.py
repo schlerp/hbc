@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 from .provider import AuthProvider
-from .schemas import LoginRequest, AuthUserRegister
+from .schemas import LoginRequest, AuthUserRegister, LoginResponse
 
 app = FastAPI(
     title="HBC: Auth uService",
@@ -15,6 +15,7 @@ auth_provider = AuthProvider()
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "http://0.0.0.0:3000",
 ]
 
 app.add_middleware(
@@ -30,7 +31,7 @@ async def get_prov():
     return auth_provider
 
 
-@app.post("/login")
+@app.post("/login", response_model=LoginResponse)
 async def login(
     login_details: LoginRequest, auth_prov: AuthProvider = Depends(get_prov)
 ):

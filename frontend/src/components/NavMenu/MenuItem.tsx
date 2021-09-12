@@ -6,12 +6,19 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   li: {
     margin: 0,
-    padding: 0,
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
     listStyle: "none",
     marginBottom: "20px",
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
+    background: theme.palette.primary.main,
+  },
+  text: {
+    textDecoration: "none",
+    color: theme.palette.primary.contrastText,
+    textAlign: "center",
   },
 }));
 
@@ -19,6 +26,7 @@ const variants = {
   open: {
     y: 0,
     opacity: 1,
+    display: "",
     transition: {
       y: { stiffness: 1000, velocity: -200 },
     },
@@ -26,6 +34,7 @@ const variants = {
   closed: {
     y: 50,
     opacity: 0,
+    display: "none",
     transition: {
       y: { stiffness: 1000 },
     },
@@ -48,11 +57,11 @@ export const MenuItem: React.FC<MenuItemIface> = ({
     toggle();
   };
   return (
-    <Link to={href}>
+    <Link to={href} className={classes.text}>
       <motion.li
         variants={variants}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         className={classes.li}
         onClick={handleClick}
       >

@@ -81,4 +81,9 @@ class AuthProvider(object):
     def login(self, username: str, password: str, secret_key: str) -> str:
         if self.check_password(username, password):
             user = self.users.get_user(username)
-            return self._gen_token(user, secret_key)
+            return {
+                "username": user.username,
+                "scopes": user.scopes,
+                "email": user.email,
+                "token": self._gen_token(user, secret_key),
+            }

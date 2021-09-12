@@ -6,4 +6,4 @@ class UserProfile(pydantic.BaseModel):
     first_name: str
     last_name: str
     bio: str
-    avatar: bytes
+    avatar: str

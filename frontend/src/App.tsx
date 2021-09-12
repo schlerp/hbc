@@ -7,15 +7,18 @@ import {
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NavMenu from "./components/NavMenu";
 import { LandingPage } from "./components/LandingPage";
-import { UserProfile } from "./components/UserProfilePage";
+import { UserProfilePage } from "./components/UserProfilePage";
 import { config } from "./config";
 import getUser from "./services/getUser";
 import SignInPage from "./components/SignInPage";
+import { IUserInStorage } from "./types";
+import profile from "./services/profile";
 
 const theme = createTheme({
   palette: {
     primary: { main: config.sitePalette.primary },
     secondary: { main: config.sitePalette.secondary },
+    info: { main: config.sitePalette.info },
   },
 });
 
@@ -32,30 +35,34 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState<IUserInStorage>(null);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
-    const localUser = getUser();
-    if (localUser !== undefined) {
-      setUser(localUser);
+    if (loggedIn) {
+      const localUser = getUser();
+      console.log(localUser);
+      if (localUser !== undefined) {
+        setUser(localUser);
+      }
+      profile.updateCachedProfile(localUser.username);
     }
-  }, []);
+  }, [loggedIn]);
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <div className={classes.appWrapper}>
-          <NavMenu />
+          <NavMenu currentUser={user} />
           <Switch>
             <Route path="/signin">
-              <SignInPage />
+              <SignInPage setLoggedIn={setLoggedIn} />
+            </Route>
+            <Route path="/profile/:targetUsername">
+              <UserProfilePage />
             </Route>
             <Route path="/">
-              {user === null ? (
-                <LandingPage />
-              ) : (
-                <UserProfile username={user.name} />
-              )}
+              <LandingPage />
             </Route>
           </Switch>
         </div>

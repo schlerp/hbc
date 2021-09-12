@@ -6,6 +6,24 @@ from .schemas import UserProfile
 class ProfileProvider(object):
     def __init__(self):
         self._store = ProfileStore()
+        self.create_profile(
+            UserProfile(
+                username="admin",
+                first_name="Johnny",
+                last_name="Admin",
+                bio="I am the admin user, look at me!",
+                avatar="https://randomuser.me/api/portraits/men/3.jpg",
+            )
+        )
+        self.create_profile(
+            UserProfile(
+                username="derp",
+                first_name="Derping",
+                last_name="Derpson",
+                bio="I am a derp head, bleep blerp heep schlerp.",
+                avatar="https://randomuser.me/api/portraits/women/3.jpg",
+            )
+        )
 
     def get_profile(self, username: str) -> UserProfile:
         return self._store.get_profile(username)

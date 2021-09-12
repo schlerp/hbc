@@ -17,6 +17,16 @@ class LoginRequest(AuthUserBase):
         orm_mode = True
 
 
+class LoginResponse(pydantic.BaseModel):
+    username: str
+    scopes: List[str]
+    email: str
+    token: str
+
+    class Config:
+        orm_mode = True
+
+
 class AuthUserRegister(AuthUserBase):
     email: str
 

@@ -5,6 +5,7 @@ import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "../../hooks/useDimensions";
 import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
+import { IUserInStorage } from "../../types";
 // import { Button } from "../controls/Button";
 
 const sidebar = {
@@ -19,7 +20,7 @@ const sidebar = {
   closed: {
     clipPath: "circle(30px at 40px 40px)",
     transition: {
-      delay: 0.5,
+      delay: 0.1,
       type: "spring",
       stiffness: 400,
       damping: 40,
@@ -48,7 +49,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NavMenu = () => {
+interface INavMenuProps {
+  currentUser: IUserInStorage;
+}
+
+export const NavMenu: React.FC<INavMenuProps> = ({ currentUser }) => {
   const classes = useStyles();
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
@@ -63,11 +68,7 @@ export const NavMenu = () => {
       className={classes.nav}
     >
       <motion.div className={classes.background} variants={sidebar} />
-      {/* <Button label="Sign up" />
-      <p>
-        or <a href="/login">sign in</a> if you already have an account
-      </p> */}
-      <Navigation toggle={() => toggleOpen()} />
+      <Navigation toggle={() => toggleOpen()} currentUser={currentUser} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   );
