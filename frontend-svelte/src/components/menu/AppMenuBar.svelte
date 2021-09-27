@@ -19,7 +19,7 @@
   in:fly={{ x: -200, duration: 250, delay: 250 }}
   out:fly={{ x: -200, duration: 250 }}
 >
-  <UserAvatar currentUsername="derp" />
+  <UserAvatar />
   <ul>
     {#each menuItems as menuItem}
       <AppMenuItem {menuItem} />

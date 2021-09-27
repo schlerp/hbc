@@ -2,6 +2,8 @@
 
 It's an app for managing a homebrew club's competitions and user profiles.
 
+Run `yarn dev` in the frontend-svelte folder for the latest frontend. The react one was a legacy experiment I'm still moving code out of.
+
 ## Functionality
 
 ### implementing/Implemented

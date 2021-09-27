@@ -15,9 +15,6 @@ provider = ProfileProvider()
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "http://0.0.0.0:3000",
-    "http://localhost:5000",
-    "http://0.0.0.0:5000",
 ]
 
 app.add_middleware(

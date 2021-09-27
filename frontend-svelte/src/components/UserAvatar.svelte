@@ -1,13 +1,22 @@
 <script type="ts">
-  import { getUserFullName, getUserAvatarUrl } from "../services/user";
-  export let currentUsername: string;
-  let userFullName = getUserFullName(currentUsername);
-  let userAvatarUrl = getUserAvatarUrl(userFullName);
+  import { getUserFullName, getUserAvatarUrl } from "../services/profile";
+  let userFullName = getUserFullName();
+  let userAvatarUrl = getUserAvatarUrl();
+  console.log(userFullName);
+  console.log(userAvatarUrl);
 </script>
 
 <div>
-  <img src={userAvatarUrl} alt={`${currentUsername} avatar image`} />
-  <span>{userFullName}</span>
+  {#if userFullName !== undefined}
+    <img src={userAvatarUrl} alt={`${userFullName} avatar`} />
+    <span>{userFullName}</span>
+  {:else}
+    <img
+      src="https://randomuser.me/api/portraits/lego/1.jpg"
+      alt="Anonymous avatar"
+    />
+    <span>Anonymous</span>
+  {/if}
 </div>
 
 <style>

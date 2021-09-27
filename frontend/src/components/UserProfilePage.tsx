@@ -39,7 +39,9 @@ export const UserProfilePage: React.FC = () => {
   const [avatar, setAvatar] = React.useState<string>(null);
 
   React.useEffect(() => {
-    setCurrentUser(getUser());
+    const user = getUser();
+    setCurrentUser(user);
+    console.log("UserProfilePage currentUser:", user);
   }, []);
 
   React.useEffect(() => {

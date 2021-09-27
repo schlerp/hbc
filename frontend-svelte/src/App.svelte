@@ -1,22 +1,24 @@
 <script lang="ts">
-  import LandingPage from "./LandingPage.svelte";
+  import LandingPage from "./pages/LandingPage.svelte";
+  import LoginPage from "./pages/LoginPage.svelte";
   import AppMenu from "./components/menu/AppMenu.svelte";
   import type { IMenuItem } from "./types";
 
   const menuItems: IMenuItem[] = [
     { text: "Members", type: "heading" },
     { text: "Member List", href: "#/members", type: "link", subtle: true },
-    { text: "My Profile", href: "#/profile", type: "link" },
+    { text: "My Profile", href: "#/profile", type: "link", loggedIn: true },
     { text: "Competitions", type: "heading" },
     { text: "All Comps", href: "#/comps", type: "link", subtle: true },
-    { text: "My Comps", href: "#/comps/my", type: "link" },
-    { text: "My Entries", href: "#/entries ", type: "link" },
+    { text: "My Comps", href: "#/comps/my", type: "link", loggedIn: true },
+    { text: "My Entries", href: "#/entries ", type: "link", loggedIn: true },
   ];
 </script>
 
 <main>
   <AppMenu {menuItems} />
-  <LandingPage />
+  <!-- <LandingPage /> -->
+  <LoginPage />
 </main>
 
 <style>
