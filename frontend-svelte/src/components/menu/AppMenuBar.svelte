@@ -35,7 +35,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: clamp(200px, 250px, 33%);
+    width: clamp(250px, 250px, 50%);
     background-color: var(--pal-secondary);
   }
   div.overlay {

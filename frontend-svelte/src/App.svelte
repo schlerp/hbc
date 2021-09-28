@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import LandingPage from "./pages/LandingPage.svelte";
   import Router, { location, push } from "svelte-spa-router";
   import LoginPage from "./pages/LoginPage.svelte";
@@ -7,18 +8,18 @@
   import { logout } from "./services/auth";
   import { config } from "./config";
   import NotFound from "./pages/NotFound.svelte";
-
-  document.title = config.siteTitle;
+  import ProfilePage from "./pages/ProfilePage.svelte";
+  import { userAuth } from "./store/auth";
 
   const logoutUrl: string = "/logout";
 
-  const menuItems: IMenuItem[] = [
-    {
-      text: "Login",
-      href: "#/login",
-      type: "link",
-      loggedIn: false,
-    },
+  let username = null;
+  let menuItems: IMenuItem[];
+  const unsubscribe = userAuth.subscribe((value) => {
+    username = value.username;
+  });
+
+  menuItems = [
     {
       text: "Logout",
       href: `#${logoutUrl}`,
@@ -27,7 +28,6 @@
     },
     { text: "Members", type: "heading" },
     { text: "Member List", href: "#/members", type: "link", subtle: true },
-    { text: "My Profile", href: "#/profile", type: "link", loggedIn: true },
     { text: "Competitions", type: "heading" },
     { text: "All Comps", href: "#/comps", type: "link", subtle: true },
     { text: "My Comps", href: "#/comps/my", type: "link", loggedIn: true },
@@ -37,10 +37,11 @@
   const routes = {
     "/": LandingPage,
     "/login": LoginPage,
+    "/profile/:username?": ProfilePage,
     "*": NotFound,
   };
 
-  console.log($location);
+  document.title = config.siteTitle;
 
   location.subscribe((value) => {
     console.log(value);
@@ -50,13 +51,15 @@
       push("/");
     }
   });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <main>
   <AppMenu {menuItems} />
   <Router {routes} />
-  <!-- <LandingPage /> -->
-  <!-- <LoginPage /> -->
 </main>
 
 <style>

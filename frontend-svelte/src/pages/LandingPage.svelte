@@ -1,6 +1,8 @@
 <script lang="ts">
   import { config } from "../config";
 
+  export const params = null;
+
   document.title = config.siteTitle;
 </script>
 

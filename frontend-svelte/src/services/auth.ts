@@ -55,6 +55,13 @@ export function logout() {
   userAuth.set(emptyUserAuth);
 }
 
+export function getUserName() {
+  if (isUserAuthed()) {
+    return localUserAuth.username;
+  }
+  return null;
+}
+
 // export async function register(
 //   username: string,
 //   email: string,

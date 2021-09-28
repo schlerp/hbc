@@ -32,3 +32,5 @@ export interface IMenuLink {
 export type IMenuItem = IMenuHeading | IMenuLink;
 
 export type ITextInputType = "text" | "password";
+
+export type IButtonType = "primary" | "secondary" | "info";

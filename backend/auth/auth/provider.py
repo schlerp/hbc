@@ -14,6 +14,7 @@ class AuthProvider(object):
     def __init__(self):
         self.users: UserStore = UserStore()
         self.add_user("admin", "admin", "admin@admin.org", ["admin"])
+        self.add_user("derp", "derp", "derp@derp.org", ["derp"])
 
     @staticmethod
     def _gen_salt(salt_length: int = 32):

@@ -9,8 +9,8 @@ class ProfileProvider(object):
         self.create_profile(
             UserProfile(
                 username="admin",
-                first_name="Johnny",
-                last_name="Admin",
+                firstName="Johnny",
+                lastName="Admin",
                 bio="I am the admin user, look at me!",
                 avatar="https://randomuser.me/api/portraits/men/3.jpg",
             )
@@ -18,8 +18,8 @@ class ProfileProvider(object):
         self.create_profile(
             UserProfile(
                 username="derp",
-                first_name="Derping",
-                last_name="Derpson",
+                firstName="Derping",
+                lastName="Derpson",
                 bio="I am a derp head, bleep blerp heep schlerp.",
                 avatar="https://randomuser.me/api/portraits/women/3.jpg",
             )

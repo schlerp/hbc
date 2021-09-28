@@ -3,7 +3,7 @@ import pydantic
 
 class UserProfile(pydantic.BaseModel):
     username: str
-    first_name: str
-    last_name: str
+    firstName: str
+    lastName: str
     bio: str
     avatar: str

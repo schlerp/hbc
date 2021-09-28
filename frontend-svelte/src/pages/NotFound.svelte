@@ -1,5 +1,6 @@
 <script lang="ts">
   import { config } from "../config";
+  export const params = null;
 </script>
 
 <img src={config.siteLogo} alt={`${config.siteTitle} logo`} />

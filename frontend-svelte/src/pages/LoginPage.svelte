@@ -6,6 +6,8 @@
   import { isUserAuthed, login } from "../services/auth";
   import { userAuth } from "../store/auth";
 
+  export const params = null;
+
   let username: string = "";
   let password: string = "";
 
