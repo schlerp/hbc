@@ -7,8 +7,8 @@ export interface IUserAuth {
 
 export interface IUserProfile {
   username: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   bio: string;
   avatar: string;
 }
@@ -17,6 +17,7 @@ export interface IMenuHeading {
   text: string;
   type: "heading";
   subheading?: boolean;
+  loggedIn?: boolean;
 }
 
 export interface IMenuLink {
@@ -29,3 +30,5 @@ export interface IMenuLink {
 }
 
 export type IMenuItem = IMenuHeading | IMenuLink;
+
+export type ITextInputType = "text" | "password";

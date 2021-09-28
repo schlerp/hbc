@@ -4,13 +4,15 @@ import { getUserProfile } from "../services/profile";
 import type { IUserProfile } from "../types";
 import { userAuth } from "./auth";
 
-export const userProfile = writable<IUserProfile>({
+const emptyUserProfile: IUserProfile = {
   username: null,
-  first_name: null,
-  last_name: null,
+  firstName: null,
+  lastName: null,
   bio: null,
   avatar: null,
-});
+};
+
+export const userProfile = writable<IUserProfile>();
 
 userAuth.subscribe(async (localUserAuth) => {
   if (isUserAuthed) {

@@ -36,11 +36,15 @@ export async function login(username: string, password: string) {
     },
   };
 
-  axiosFetch("login", options).then((json) => {
+  const loginSuccess = await axiosFetch("login", options).then((json) => {
     if (json !== null) {
       userAuth.set(json);
+      return true;
+    } else {
+      return false;
     }
   });
+  return loginSuccess;
 }
 
 export function isUserAuthed() {
@@ -48,7 +52,7 @@ export function isUserAuthed() {
 }
 
 export function logout() {
-  userAuth.set(null);
+  userAuth.set(emptyUserAuth);
 }
 
 // export async function register(

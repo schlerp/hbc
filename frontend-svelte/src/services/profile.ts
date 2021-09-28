@@ -44,15 +44,13 @@ export async function getUserProfile(
   }
 }
 
-export function getUserFullName() {
-  console.log(isUserAuthed());
+export function getUserFirstName() {
   if (isUserAuthed()) {
-    return localUserProfile.fullName;
+    return localUserProfile.firstName;
   }
 }
 
 export function getUserAvatarUrl() {
-  console.log(isUserAuthed);
   if (isUserAuthed()) {
     return localUserProfile.avatar;
   }

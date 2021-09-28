@@ -1,15 +1,13 @@
 <script type="ts">
-  import { getUserFullName, getUserAvatarUrl } from "../services/profile";
-  let userFullName = getUserFullName();
+  import { getUserFirstName, getUserAvatarUrl } from "../services/profile";
+  let userFirstName = getUserFirstName();
   let userAvatarUrl = getUserAvatarUrl();
-  console.log(userFullName);
-  console.log(userAvatarUrl);
 </script>
 
 <div>
-  {#if userFullName !== undefined}
-    <img src={userAvatarUrl} alt={`${userFullName} avatar`} />
-    <span>{userFullName}</span>
+  {#if userFirstName !== undefined}
+    <img src={userAvatarUrl} alt={`${userFirstName} avatar`} />
+    <span>{userFirstName}</span>
   {:else}
     <img
       src="https://randomuser.me/api/portraits/lego/1.jpg"
@@ -23,7 +21,8 @@
   div {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    margin: auto;
+    justify-content: center;
     padding: calc(var(--spacing) * 1);
   }
   img {

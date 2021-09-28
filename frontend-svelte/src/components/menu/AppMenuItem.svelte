@@ -7,14 +7,16 @@
   import AppMenuLink from "./AppMenuLink.svelte";
 
   export let menuItem: IMenuItem;
-  console.log(menuItem);
-  console.log(isUserAuthed());
+
+  // if (menuItem.loggedIn === undefined) {
+  //   menuItem.loggedIn = false;
+  // }
 </script>
 
-{#if menuItem.type === "heading"}
-  <AppMenuHeading {menuItem} />
-{:else if menuItem.loggedIn !== undefined && menuItem.loggedIn === true && isUserAuthed()}
-  <AppMenuLink {menuItem} />
-{:else if menuItem.loggedIn === undefined || menuItem.loggedIn === false}
-  <AppMenuLink {menuItem} />
+{#if menuItem.loggedIn === undefined || (menuItem.loggedIn === true && isUserAuthed()) || (menuItem.loggedIn === false && !isUserAuthed())}
+  {#if menuItem.type === "link"}
+    <AppMenuLink {menuItem} />
+  {:else if menuItem.type === "heading"}
+    <AppMenuHeading {menuItem} />
+  {/if}
 {/if}

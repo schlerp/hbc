@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { isUserAuthed } from "../../services/auth";
   import type { IMenuLink } from "../../types";
   export let menuItem: IMenuLink;
 </script>
