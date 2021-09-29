@@ -1,11 +1,20 @@
 <script type="ts">
   import { push } from "svelte-spa-router";
-
+  import { defaultAvatarUrl } from "../store/profile";
   import { getUserFirstName, getUserAvatarUrl } from "../services/profile";
   import { getUserName } from "../services/auth";
   import Button from "./controls/Button.svelte";
+
   let userFirstName = getUserFirstName();
   let userAvatarUrl = getUserAvatarUrl();
+
+  if (userFirstName === null) {
+    userFirstName = getUserName();
+  }
+
+  if (userAvatarUrl === null) {
+    userAvatarUrl = defaultAvatarUrl;
+  }
 
   function handleAvatarClick() {
     if (userFirstName !== undefined) {
@@ -31,10 +40,7 @@
   </div>
 {:else}
   <div>
-    <img
-      src="https://randomuser.me/api/portraits/lego/1.jpg"
-      alt="anonymous avatar"
-    />
+    <img src={defaultAvatarUrl} alt="anonymous avatar" />
     <span>Anonymous</span>
   </div>
   <div>

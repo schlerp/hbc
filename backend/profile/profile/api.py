@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from .provider import ProfileProvider
@@ -45,11 +45,13 @@ async def create_profile(
     return _prov.create_profile(profile)
 
 
-@app.put("/profile")
+@app.put("/{username}")
 async def update_profile(
-    profile: UserProfile, _prov: ProfileProvider = Depends(get_prov)
+    username: str, profile: UserProfile, _prov: ProfileProvider = Depends(get_prov)
 ):
-    return _prov.update_profile(profile)
+    if profile.username == username:
+        return _prov.update_profile(profile)
+    raise HTTPException(500, "profile username in url/body do not match!")
 
 
 @app.delete("/{username}")

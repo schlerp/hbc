@@ -53,5 +53,6 @@
     flex-direction: column;
     align-items: center;
     justify-items: center;
+    width: clamp(400px, 480px, 33%);
   }
 </style>

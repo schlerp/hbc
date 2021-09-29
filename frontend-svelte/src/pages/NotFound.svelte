@@ -14,7 +14,7 @@
   }
   img {
     max-height: 50%;
-    width: auto;
+    width: clamp(300px, 450px, 80%);
     padding-left: calc(var(--spacing) * 2);
     padding-right: calc(var(--spacing) * 2);
   }

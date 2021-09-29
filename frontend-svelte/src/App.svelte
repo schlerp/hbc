@@ -5,7 +5,7 @@
   import LoginPage from "./pages/LoginPage.svelte";
   import AppMenu from "./components/menu/AppMenu.svelte";
   import type { IMenuItem } from "./types";
-  import { logout } from "./services/auth";
+  import { localStorageAuthKey, logout } from "./services/auth";
   import { config } from "./config";
   import NotFound from "./pages/NotFound.svelte";
   import ProfilePage from "./pages/ProfilePage.svelte";
@@ -51,6 +51,12 @@
       push("/");
     }
   });
+
+  // check if user already logged in (in localStorage)
+  const storedUserAuth = localStorage.getItem(localStorageAuthKey);
+  if (storedUserAuth !== null) {
+    userAuth.set(JSON.parse(storedUserAuth));
+  }
 
   onDestroy(() => {
     unsubscribe();

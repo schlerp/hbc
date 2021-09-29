@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, Method } from "axios";
 import { userAuth, emptyUserAuth } from "../store/auth";
 
 var localUserAuth = null;
+export const localStorageAuthKey = "hbc_auth";
 
 userAuth.subscribe((value) => {
   localUserAuth = value;
@@ -39,6 +40,7 @@ export async function login(username: string, password: string) {
   const loginSuccess = await axiosFetch("login", options).then((json) => {
     if (json !== null) {
       userAuth.set(json);
+      localStorage.setItem(localStorageAuthKey, JSON.stringify(json));
       return true;
     } else {
       return false;
@@ -53,6 +55,7 @@ export function isUserAuthed() {
 
 export function logout() {
   userAuth.set(emptyUserAuth);
+  localStorage.removeItem(localStorageAuthKey);
 }
 
 export function getUserName() {

@@ -31,6 +31,7 @@
     border-radius: var(--spacing);
     font-size: 1rem;
     transition: all 50ms;
+    cursor: pointer;
   }
   .primary {
     background-color: var(--pal-primary);

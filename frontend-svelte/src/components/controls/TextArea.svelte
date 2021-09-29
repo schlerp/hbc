@@ -1,12 +1,10 @@
 <script lang="ts">
   import genId from "../../utils/genId";
-  import type { ITextInputType } from "../../types";
 
-  let control: HTMLInputElement;
+  let control: HTMLTextAreaElement;
 
   export let value: string = "";
   export let label: string = "Input";
-  export let inputType: ITextInputType = "text";
   export let inputId: string = genId();
   export let name: string = inputId;
   export let tabIndex: number = 0;
@@ -18,39 +16,28 @@
 </script>
 
 <div class="form-group">
-  {#if inputType === "password"}
-    <input
-      bind:this={control}
-      bind:value
-      id={inputId}
-      type="password"
-      class="form-control"
-      placeholder="input control"
-      tabindex={tabIndex}
-      {name}
-    />
-  {:else}
-    <input
-      bind:this={control}
-      bind:value
-      id={inputId}
-      type="text"
-      class="form-control"
-      placeholder="input control"
-      tabindex={tabIndex}
-      {name}
-    />
-  {/if}
+  <textarea
+    bind:this={control}
+    bind:value
+    id={inputId}
+    class="form-control"
+    placeholder="text area"
+    tabindex={tabIndex}
+    {name}
+  />
   <label for={inputId} class="form-label">{label}</label>
 </div>
 
 <style>
-  input {
-    /* box-sizing: border-box; */
+  textarea {
+    font-family: inherit;
+    font-size: inherit;
   }
   .form-group {
     margin-bottom: var(--spacing);
     transition: all 0.25s;
+    /* width: calc(100% - calc(var(--spacing) * 2)); */
+    width: 100%;
   }
   .form-label {
     font-size: 1rem;
@@ -70,10 +57,10 @@
     border-radius: var(--spacing);
     border-color: var(--pal-info);
     border-style: none none solid none;
-    width: calc(100% - calc(var(--spacing) * 2));
-    height: 1.5em;
-    font-size: 1em;
+    height: 4.5rem;
+    font-size: 1rem;
     transition: all 0.4s;
+    resize: none;
   }
   .form-control::placeholder {
     color: rgba(0, 0, 0, 0);
@@ -85,7 +72,7 @@
   }
   .form-control:focus + .form-label,
   .form-control:not(:placeholder-shown) + .form-label {
-    transform: translateY(-3.5rem) scale(0.8);
+    transform: translateY(-6.5rem) scale(0.8);
   }
   .form-group:focus-within {
     transform: scale(102%, 102%);

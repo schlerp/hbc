@@ -4,19 +4,26 @@ import { getUserProfile } from "../services/profile";
 import type { IUserProfile } from "../types";
 import { userAuth } from "./auth";
 
-const emptyUserProfile: IUserProfile = {
+export const defaultAvatarUrl =
+  "https://randomuser.me/api/portraits/lego/1.jpg";
+
+export const emptyUserProfile: IUserProfile = {
   username: null,
   firstName: null,
   lastName: null,
   bio: null,
-  avatar: null,
+  avatar: defaultAvatarUrl,
 };
 
-export const userProfile = writable<IUserProfile>();
+export const userProfile = writable<IUserProfile>(emptyUserProfile);
 
 userAuth.subscribe(async (localUserAuth) => {
   if (isUserAuthed) {
     const remoteUserProfile = await getUserProfile();
-    userProfile.set(remoteUserProfile);
+    if (remoteUserProfile !== null) {
+      userProfile.set(remoteUserProfile);
+    } else {
+      userProfile.set(emptyUserProfile);
+    }
   }
 });
