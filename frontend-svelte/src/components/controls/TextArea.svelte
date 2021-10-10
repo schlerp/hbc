@@ -32,12 +32,15 @@
   textarea {
     font-family: inherit;
     font-size: inherit;
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
   }
   .form-group {
     margin-bottom: var(--spacing);
     transition: all 0.25s;
-    /* width: calc(100% - calc(var(--spacing) * 2)); */
-    width: 100%;
+    width: calc(100% - calc(var(--spacing) * 4));
+    box-sizing: border-box;
   }
   .form-label {
     font-size: 1rem;
@@ -57,6 +60,8 @@
     border-radius: var(--spacing);
     border-color: var(--pal-info);
     border-style: none none solid none;
+    /* width: calc(100% - calc(var(--spacing) * 2)); */
+    /* width: 300px; */
     height: 4.5rem;
     font-size: 1rem;
     transition: all 0.4s;
@@ -72,9 +77,9 @@
   }
   .form-control:focus + .form-label,
   .form-control:not(:placeholder-shown) + .form-label {
-    transform: translateY(-6.5rem) scale(0.8);
+    transform: translateY(-5.75rem) scale(0.8);
   }
-  .form-group:focus-within {
+  /* .form-group:focus-within {
     transform: scale(102%, 102%);
-  }
+  } */
 </style>

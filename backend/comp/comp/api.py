@@ -17,8 +17,13 @@ async def get_prov():
 
 
 @app.get("/comp")
-async def get_comp(username: str, _prov: CompProvider = Depends(get_prov)):
-    return _prov.get_comp(username)
+async def get_all_comps(_prov: CompProvider = Depends(get_prov)):
+    return _prov.get_all_comps()
+
+
+@app.get("/comp/{competitionId}")
+async def get_comp(competitionId: str, _prov: CompProvider = Depends(get_prov)):
+    return _prov.get_comp(competitionId)
 
 
 @app.post("/comp")
@@ -31,6 +36,6 @@ async def update_comp(comp: Competition, _prov: CompProvider = Depends(get_prov)
     return _prov.update_comp(comp)
 
 
-@app.delete("/comp")
-async def remove_comp(username: str, _prov: CompProvider = Depends(get_prov)):
-    return _prov.remove_comp(username)
+@app.delete("/comp/{competitionId}")
+async def remove_comp(competitionId: str, _prov: CompProvider = Depends(get_prov)):
+    return _prov.remove_comp(competitionId)

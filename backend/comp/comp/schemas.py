@@ -10,8 +10,8 @@ class BJCPStyle(pydantic.BaseModel):
 
 
 class Competition(pydantic.BaseModel):
-    competition_id: int
-    allowed_styles: List[BJCPStyle]
-    entries_close_date: datetime
-    awards_date: datetime
+    competitionId: int
+    allowedStyles: List[BJCPStyle]
+    entriesCloseDate: datetime
+    awardsDate: datetime
     description: str

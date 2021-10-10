@@ -3,7 +3,7 @@
   import { getUserProfile, upsertUserProfile } from "../services/profile";
   import type { IUserProfile } from "../types";
   import TextInput from "../components/controls/TextInput.svelte";
-  import { emptyUserProfile } from "../store/profile";
+  import { emptyUserProfile } from "../types";
   import TextArea from "../components/controls/TextArea.svelte";
   import Button from "../components/controls/Button.svelte";
 
@@ -39,33 +39,41 @@
   }
 </script>
 
-<h3>{params.username}'s Profile</h3>
-{#if canEdit}
-  <form on:submit|preventDefault={handleProfileUpdate}>
-    <TextInput
-      name="firstName"
-      label="First Name"
-      bind:value={currentProfile.firstName}
-    />
-    <TextInput
-      name="LastName"
-      label="Last Name"
-      bind:value={currentProfile.lastName}
-    />
-    <TextArea name="bio" label="Biography" bind:value={currentProfile.bio} />
-    <TextInput
-      name="avatar"
-      label="Avatar"
-      bind:value={currentProfile.avatar}
-    />
-    <Button label="Update Profile" />
-  </form>
-{:else if currentProfile !== emptyUserProfile}
-  <p><strong>{currentProfile.firstName} {currentProfile.lastName} </strong></p>
-  <p>{currentProfile.bio}</p>
-{:else}
-  <p>{params.username} does not have a profile!</p>
-{/if}
+<div class="wrapper">
+  {#if canEdit}
+    <form on:submit|preventDefault={handleProfileUpdate}>
+      <img src={currentProfile.avatar} alt={`${currentUsername}'s avatar`} />
+      <h2>{params.username}'s Profile</h2>
+      <TextInput
+        name="firstName"
+        label="First Name"
+        bind:value={currentProfile.firstName}
+      />
+      <TextInput
+        name="LastName"
+        label="Last Name"
+        bind:value={currentProfile.lastName}
+      />
+      <TextArea name="bio" label="Biography" bind:value={currentProfile.bio} />
+      <TextInput
+        name="avatar"
+        label="Avatar"
+        bind:value={currentProfile.avatar}
+      />
+      <Button label="Update Profile" />
+    </form>
+  {:else if currentProfile !== emptyUserProfile}
+    <img src={currentProfile.avatar} alt={`${currentUsername}'s avatar`} />
+    <h2>{params.username}'s Profile</h2>
+    <p>
+      <strong>{currentProfile.firstName} {currentProfile.lastName} </strong>
+    </p>
+    <p>{currentProfile.bio}</p>
+  {:else}
+    <h2>{params.username}'s Profile</h2>
+    <p>{params.username} does not have a profile!</p>
+  {/if}
+</div>
 
 <style>
   form {
@@ -73,5 +81,25 @@
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    padding: var(--spacing);
+    width: 100%;
+  }
+  img {
+    height: calc(var(--spacing) * 15);
+    width: calc(var(--spacing) * 15);
+    border-radius: 50%;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    max-width: 600px;
+    width: clamp(300px, 50%, 600px);
+    padding: var(--spacing);
+    margin: calc(var(--spacing) * 2);
+    border-radius: var(--spacing);
+    box-shadow: 2px 2px 3px 0px var(--pal-text-soft),
+      3px 3px 5px 0px var(--pal-text-soft);
   }
 </style>

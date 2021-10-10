@@ -1,4 +1,4 @@
-import os
+from typing import List
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -31,6 +31,11 @@ app.add_middleware(
 
 async def get_prov():
     return provider
+
+
+@app.get("/profile", response_model=List[UserProfile])
+async def get_all_profiles(_prov: ProfileProvider = Depends(get_prov)):
+    return _prov.get_profiles()
 
 
 @app.get("/{username}")

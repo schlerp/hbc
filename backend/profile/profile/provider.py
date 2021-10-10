@@ -7,15 +7,16 @@ from .exceptions import NoMatchingProfileException
 class ProfileProvider(object):
     def __init__(self):
         self._store = ProfileStore()
-        # self.create_profile(
-        #     UserProfile(
-        #         username="admin",
-        #         firstName="Johnny",
-        #         lastName="Admin",
-        #         bio="I am the admin user, look at me!",
-        #         avatar="https://randomuser.me/api/portraits/men/3.jpg",
-        #     )
-        # )
+        self.create_profile(
+            UserProfile(
+                username="admin",
+                firstName="Johnny",
+                lastName="Admin",
+                bio="I am the admin user, look at me!",
+                favouriteStyle="Black IPA",
+                avatar="https://randomuser.me/api/portraits/men/3.jpg",
+            )
+        )
         self.create_profile(
             UserProfile(
                 username="derp",
@@ -25,9 +26,22 @@ class ProfileProvider(object):
                 avatar="https://randomuser.me/api/portraits/women/3.jpg",
             )
         )
+        self.create_profile(
+            UserProfile(
+                username="blerp",
+                firstName="Franky",
+                lastName="Frankson",
+                bio="I am a derp head, bleep blerp heep schlerp.",
+                favouriteStyle="Saison",
+                avatar="https://randomuser.me/api/portraits/men/5.jpg",
+            )
+        )
 
     def get_profile(self, username: str) -> UserProfile:
         return self._store.get_profile(username)
+
+    def get_profiles(self) -> List[UserProfile]:
+        return self._store.get_profiles()
 
     def create_profile(self, profile: UserProfile) -> bool:
         return self._store.add_profile(profile)

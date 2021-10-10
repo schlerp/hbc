@@ -1,13 +1,10 @@
 import axios, { AxiosRequestConfig, Method } from "axios";
 import { get } from "svelte/store";
 import { emptyUserAuth, userAuth } from "../store/auth";
-import {
-  emptyUserProfile,
-  userProfile,
-  defaultAvatarUrl,
-} from "../store/profile";
+import { userProfile } from "../store/profile";
 import type { IUserProfile } from "../types";
 import { isUserAuthed } from "./auth";
+import { emptyUserProfile, defaultAvatarUrl } from "../types";
 
 var localUserAuth = emptyUserAuth;
 var localUserProfile = emptyUserProfile;
@@ -47,6 +44,17 @@ export async function getUserProfile(
     const url = username;
     return axiosFetch(url, options);
   }
+}
+
+export async function getAllProfiles() {
+  const method: Method = "GET";
+  const options = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+    },
+  };
+  return axiosFetch("profile", options);
 }
 
 export function getUserFirstName() {

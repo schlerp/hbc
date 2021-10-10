@@ -1,6 +1,6 @@
 <script type="ts">
   import { push } from "svelte-spa-router";
-  import { defaultAvatarUrl } from "../store/profile";
+  import { defaultAvatarUrl } from "../types";
   import { getUserFirstName, getUserAvatarUrl } from "../services/profile";
   import { getUserName } from "../services/auth";
   import Button from "./controls/Button.svelte";

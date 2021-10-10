@@ -7,9 +7,11 @@
   import type { IMenuItem } from "./types";
   import { localStorageAuthKey, logout } from "./services/auth";
   import { config } from "./config";
-  import NotFound from "./pages/NotFound.svelte";
+  import NotFound from "./pages/BlankPage.svelte";
   import ProfilePage from "./pages/ProfilePage.svelte";
   import { userAuth } from "./store/auth";
+  import MembersPage from "./pages/MembersPage.svelte";
+  import CompetitionsPage from "./pages/CompetitionsPage.svelte";
 
   const logoutUrl: string = "/logout";
 
@@ -38,6 +40,8 @@
     "/": LandingPage,
     "/login": LoginPage,
     "/profile/:username?": ProfilePage,
+    "/members": MembersPage,
+    "/comps": CompetitionsPage,
     "*": NotFound,
   };
 
@@ -77,7 +81,7 @@
     --pal-info: #f4e9cb;
     --pal-text-dark: #333333;
     --pal-text-light: #fafafa;
-    --ff-body: "Montserrat", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
-      "Helvetica Neue", sans-serif;
+    --pal-text-soft: #cccccc;
+    --ff-body: "Montserrat", Oxygen-Sans, "Helvetica Neue", sans-serif;
   }
 </style>

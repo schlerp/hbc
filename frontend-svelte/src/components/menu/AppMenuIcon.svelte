@@ -34,6 +34,8 @@
     position: fixed;
     top: var(--spacing);
     left: var(--spacing);
+    box-shadow: 2px 2px 3px 0px var(--pal-text-soft),
+      3px 3px 5px 0px var(--pal-text-soft);
   }
   svg {
     display: block;

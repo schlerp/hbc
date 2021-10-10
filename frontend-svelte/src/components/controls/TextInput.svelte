@@ -46,11 +46,12 @@
 
 <style>
   input {
-    /* box-sizing: border-box; */
+    width: 100%;
   }
   .form-group {
     margin-bottom: var(--spacing);
     transition: all 0.25s;
+    width: calc(100% - calc(var(--spacing) * 4));
   }
   .form-label {
     font-size: 1rem;
@@ -71,6 +72,7 @@
     border-color: var(--pal-info);
     border-style: none none solid none;
     width: calc(100% - calc(var(--spacing) * 2));
+    /* width: 300px; */
     height: 1.5em;
     font-size: 1em;
     transition: all 0.4s;
@@ -87,7 +89,7 @@
   .form-control:not(:placeholder-shown) + .form-label {
     transform: translateY(-3.5rem) scale(0.8);
   }
-  .form-group:focus-within {
+  /* .form-group:focus-within {
     transform: scale(102%, 102%);
-  }
+  } */
 </style>

@@ -3,17 +3,7 @@ import { isUserAuthed } from "../services/auth";
 import { getUserProfile } from "../services/profile";
 import type { IUserProfile } from "../types";
 import { userAuth } from "./auth";
-
-export const defaultAvatarUrl =
-  "https://randomuser.me/api/portraits/lego/1.jpg";
-
-export const emptyUserProfile: IUserProfile = {
-  username: null,
-  firstName: null,
-  lastName: null,
-  bio: null,
-  avatar: defaultAvatarUrl,
-};
+import { emptyUserProfile } from "../types";
 
 export const userProfile = writable<IUserProfile>(emptyUserProfile);
 

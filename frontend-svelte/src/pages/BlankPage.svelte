@@ -1,10 +1,20 @@
 <script lang="ts">
   import { config } from "../config";
   export const params = null;
+  export let title = null;
+  export let subtitle = null;
 </script>
 
 <img src={config.siteLogo} alt={`${config.siteTitle} logo`} />
-<h1>Page Not Found!</h1>
+{#if title !== null}
+  <h1>{title}</h1>
+{:else}
+  <h1>Page Not Found!</h1>
+{/if}
+
+{#if subtitle !== null}
+  <p>{subtitle}</p>
+{/if}
 
 <style>
   h1 {

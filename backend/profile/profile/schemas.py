@@ -7,3 +7,5 @@ class UserProfile(pydantic.BaseModel):
     lastName: str
     bio: str
     avatar: str
+    favouriteStyle: str = "Water"
+    active: bool = True

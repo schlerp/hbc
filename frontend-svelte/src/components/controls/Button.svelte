@@ -26,6 +26,7 @@
 <style>
   button {
     box-shadow: none;
+    border: none;
     height: 2rem;
     min-width: 6rem;
     border-radius: var(--spacing);
