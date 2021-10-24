@@ -11,6 +11,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: var(--ff-body, "Montserrat, sans-serif");
+  background-color: #fafafa;
 }
 
 main {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BackgroundAnimation from "../components/BackgroundAnimation.svelte";
   import { config } from "../config";
 
   export const params = null;
@@ -6,6 +7,7 @@
   document.title = config.siteTitle;
 </script>
 
+<BackgroundAnimation />
 <img src={config.siteLogo} alt={`${config.siteTitle} logo`} />
 <h1>{config.siteTitle}</h1>
 

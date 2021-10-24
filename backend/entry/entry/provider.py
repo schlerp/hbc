@@ -1,4 +1,5 @@
 from typing import Dict, List
+
 from .store import EntryStore
 from .schemas import CompetitionEntry
 
@@ -6,6 +7,28 @@ from .schemas import CompetitionEntry
 class EntryProvider(object):
     def __init__(self):
         self._store = EntryStore()
+        self.create_entry(
+            CompetitionEntry(
+                username="admin",
+                competition_id="1",
+                entry_id="1",
+                name="Beer Flavour",
+                category="12",
+                subcategory="c",
+                notes="made out of real beer!",
+            )
+        )
+        self.create_entry(
+            CompetitionEntry(
+                username="derp",
+                competition_id="1",
+                entry_id="2",
+                name="saucy saison",
+                category="12",
+                subcategory="c",
+                notes="",
+            )
+        )
 
     def get_all(self) -> List[CompetitionEntry]:
         return self._store.get_all()

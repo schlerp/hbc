@@ -1,10 +1,13 @@
 <script lang="ts">
+  import BackgroundAnimation from "../components/BackgroundAnimation.svelte";
+
   import { config } from "../config";
   export const params = null;
   export let title = null;
   export let subtitle = null;
 </script>
 
+<BackgroundAnimation />
 <img src={config.siteLogo} alt={`${config.siteTitle} logo`} />
 {#if title !== null}
   <h1>{title}</h1>

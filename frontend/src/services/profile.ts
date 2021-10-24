@@ -1,50 +1,90 @@
-import { IUserProfile } from "../types";
-import authHeader from "./authHeader";
+import axios, { AxiosRequestConfig, Method } from "axios";
+import { get } from "svelte/store";
+import { emptyUserAuth, userAuth } from "../store/auth";
+import { userProfile } from "../store/profile";
+import type { IUserProfile } from "../types";
+import { isUserAuthed } from "./auth";
+import { emptyUserProfile, defaultAvatarUrl } from "../types";
 
-const PROFILE_API_URL = "http://localhost:8002";
-const PROFILE_STORAGE_KEY = "current_profile";
+var localUserAuth = emptyUserAuth;
+var localUserProfile = emptyUserProfile;
 
-const getLocalProfile = () => {
-  return JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY));
-};
+userAuth.subscribe((value) => {
+  localUserAuth = value;
+});
 
-const getProfile = async (username: string) => {
-  return await fetch(PROFILE_API_URL + `/${username}`, {
-    headers: authHeader(),
-  }).then((resp) => {
-    return resp.json();
-  });
-};
+userProfile.subscribe((value) => {
+  localUserProfile = value;
+});
 
-const updateCachedProfile = (username: string) => {
-  fetch(PROFILE_API_URL + `/${username}`, {
-    headers: authHeader(),
-  })
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((json) => {
-      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(json));
-    })
-    .catch(console.log);
-};
+export async function axiosFetch(
+  endpoint: string,
+  options: AxiosRequestConfig,
+  authApiUrl: string = "http://localhost:8002"
+) {
+  console.log(`${options.method} ${authApiUrl}/${endpoint}`, options.data);
+  let response = await axios(`${authApiUrl}/${endpoint}`, options);
+  if (response && response.status === 200) {
+    return response.data;
+  }
+  return null;
+}
 
-const updateProfile = async (profile: IUserProfile) => {
-  return fetch(PROFILE_API_URL + `/profile`, {
-    method: "PUT",
-    mode: "cors",
+export async function getUserProfile(
+  username: string = get(userAuth).username
+) {
+  if (username !== "") {
+    const method: Method = "GET";
+    const options = {
+      method: method,
+      headers: {
+        Accept: "application/json",
+      },
+    };
+    const url = username;
+    return axiosFetch(url, options);
+  }
+}
+
+export async function getAllProfiles() {
+  const method: Method = "GET";
+  const options = {
+    method: method,
     headers: {
-      "Content-Type": "application/json",
       Accept: "application/json",
-      ...authHeader(),
     },
-    body: JSON.stringify(profile),
-  });
-};
+  };
+  return axiosFetch("profile", options);
+}
 
-export default {
-  getLocalProfile,
-  getProfile,
-  updateCachedProfile,
-  updateProfile,
-};
+export function getUserFirstName() {
+  if (isUserAuthed() && localUserProfile !== emptyUserProfile) {
+    return localUserProfile.firstName;
+  } else if (isUserAuthed() && localUserProfile === emptyUserProfile) {
+    return localUserAuth.username;
+  }
+}
+
+export function getUserAvatarUrl() {
+  console.log(localUserProfile);
+  if (isUserAuthed() && localUserProfile !== null) {
+    return localUserProfile.avatar;
+  } else if (isUserAuthed() && localUserProfile === null) {
+    return defaultAvatarUrl;
+  }
+}
+
+export function upsertUserProfile(userProfile: IUserProfile) {
+  if (userProfile.username !== "") {
+    const method: Method = "PUT";
+    const options = {
+      method: method,
+      headers: {
+        Accept: "application/json",
+      },
+      data: userProfile,
+    };
+    const url = userProfile.username;
+    return axiosFetch(url, options);
+  }
+}

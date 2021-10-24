@@ -1,24 +1,64 @@
-interface ILogin {
+export interface IUserAuth {
   username: string;
-  password: string;
-}
-
-export interface IAuthApiClient extends Promise<Object> {
-  login(args: ILogin): Function;
-  signup(args: ILogin): Function;
-}
-
-export interface IUserInStorage {
-  username: string;
-  scopes: Array<string>;
+  scopes: string[];
   email: string;
   token: string;
 }
 
 export interface IUserProfile {
   username: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   bio: string;
   avatar: string;
+  active: boolean;
+  favouriteStyle: string;
 }
+
+export interface IStyle {
+  name: string;
+  category: string;
+  subcategory: string;
+}
+
+export interface ICompetition {
+  competitionId: number;
+  allowedStyles: IStyle[];
+  entriesCloseDate: Date;
+  awardsDate: Date;
+  description: string;
+}
+
+export const defaultAvatarUrl =
+  "https://randomuser.me/api/portraits/lego/1.jpg";
+export const emptyUserProfile: IUserProfile = {
+  username: null,
+  firstName: null,
+  lastName: null,
+  bio: null,
+  avatar: defaultAvatarUrl,
+  active: true,
+  favouriteStyle: null,
+};
+
+export interface IMenuHeading {
+  text: string;
+  type: "heading";
+  subheading?: boolean;
+  loggedIn?: boolean;
+}
+
+export interface IMenuLink {
+  text: string;
+  href: string;
+  icon?: SVGElement;
+  type: "link";
+  subtle?: boolean;
+  loggedIn?: boolean;
+}
+
+export type IMenuItem = IMenuHeading | IMenuLink;
+
+export type ITextInputType = "text" | "password";
+
+export type IButtonType = "primary" | "secondary" | "info";

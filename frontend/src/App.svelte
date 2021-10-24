@@ -28,11 +28,12 @@
       type: "link",
       loggedIn: true,
     },
+    { text: "News", type: "heading" },
+    { text: "Latest News", href: "#/news", type: "link", subtle: true },
     { text: "Members", type: "heading" },
     { text: "Member List", href: "#/members", type: "link", subtle: true },
     { text: "Competitions", type: "heading" },
     { text: "All Comps", href: "#/comps", type: "link", subtle: true },
-    { text: "My Comps", href: "#/comps/my", type: "link", loggedIn: true },
     { text: "My Entries", href: "#/entries ", type: "link", loggedIn: true },
   ];
 

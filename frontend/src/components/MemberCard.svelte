@@ -1,83 +1,84 @@
 <script lang="ts">
   import { push } from "svelte-spa-router";
-
-  import { getAllProfiles } from "../services/profile";
   import type { IUserProfile } from "../types";
 
-  let memberProfiles: IUserProfile[] = [];
-  getAllProfiles().then((profiles) => {
-    memberProfiles = profiles;
-  });
+  console.log("MemberCard loaded...");
+
+  export let profile: IUserProfile;
+  export let showAvatar: boolean = true;
+  export let showFavouriteStyle: boolean = true;
 
   function handleClick(username: string) {
     push(`/profile/${username}`);
   }
 </script>
 
-<h2>Current Members</h2>
-<div>
-  {#each memberProfiles as profile}
-    <div
-      class="row"
-      on:click={() => {
-        handleClick(profile.username);
-      }}
-    >
+<div class="row">
+  <div
+    class="card"
+    on:click={() => {
+      handleClick(profile.username);
+    }}
+  >
+    {#if showAvatar === true}
       <img
-        class="col1 item"
+        class="avatar item"
         src={profile.avatar}
         alt={`${profile.username}'s avatar`}
       />
-      <p class="col2 item">{profile.lastName}, {profile.firstName}</p>
-      <p class="col3 item">🍺 {profile.favouriteStyle}</p>
-    </div>
-  {/each}
+    {/if}
+    <p class="name item">{profile.lastName}, {profile.firstName}</p>
+    {#if showFavouriteStyle === true}
+      <p class="favStyle item">🍺 {profile.favouriteStyle}</p>
+    {/if}
+  </div>
 </div>
 
 <style>
-  h2 {
-    color: var(--pal-text-dark);
-  }
-  img {
+  .avatar {
     width: calc(var(--spacing) * 15);
     height: calc(var(--spacing) * 15);
     border-radius: 50%;
   }
-  p {
-    font-size: 1rem;
+  .name {
+    width: 180px;
+  }
+  .favStyle {
+    width: 120px;
   }
   .row {
+    margin: calc(var(--spacing) * 2);
+  }
+  .card {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     justify-items: center;
-    margin: calc(var(--spacing) * 2);
-    /* border: 1px solid salmon; */
     border-radius: var(--spacing);
     box-shadow: 2px 2px 3px 0px var(--pal-text-soft),
       3px 3px 5px 0px var(--pal-text-soft);
     cursor: pointer;
+    background-color: #ffffff;
   }
   .item {
     justify-self: center;
     align-self: center;
     margin: calc(var(--spacing) * 2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .col2::before {
-    content: "Name";
+  .name::before {
+    content: "Member Name";
     display: flex;
-    align-items: center;
-    justify-content: center;
     top: -1rem;
     color: var(--pal-text-soft);
     font-size: 0.8rem;
   }
-  .col3::before {
-    content: "Style";
+  .favStyle::before {
+    content: "Favourite Style";
     display: flex;
-    align-items: center;
-    justify-content: center;
     top: -1rem;
     color: var(--pal-text-soft);
     font-size: 0.8rem;

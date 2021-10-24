@@ -52,18 +52,3 @@ export async function getAllCompetitions() {
   };
   return axiosFetch("comp", options);
 }
-
-// export function upsertUserProfile(userProfile: IUserProfile) {
-//   if (userProfile.username !== "") {
-//     const method: Method = "PUT";
-//     const options = {
-//       method: method,
-//       headers: {
-//         Accept: "application/json",
-//       },
-//       data: userProfile,
-//     };
-//     const url = userProfile.username;
-//     return axiosFetch(url, options);
-//   }
-// }

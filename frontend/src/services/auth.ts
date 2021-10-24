@@ -1,62 +1,84 @@
-export const API_URL = "http://localhost:8001";
-export const USER_STORAGE_KEY = "current_user";
+import axios, { AxiosRequestConfig, Method } from "axios";
+import { userAuth, emptyUserAuth } from "../store/auth";
 
-const register = (username: string, email: string, password: string) => {
-  return fetch(API_URL + "/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
-  });
-};
+var localUserAuth = null;
+export const localStorageAuthKey = "hbc_auth";
 
-const login = (username: string, password: string) => {
-  console.log(
-    JSON.stringify({
-      username: username,
-      password: password,
-    })
+userAuth.subscribe((value) => {
+  localUserAuth = value;
+});
+
+export async function axiosFetch(
+  endpoint: string,
+  options: AxiosRequestConfig,
+  authApiUrl: string = "http://localhost:8001"
+) {
+  let response = await axios(`${authApiUrl}/${endpoint}`, options).catch(
+    console.log
   );
-  return fetch(API_URL + "/login", {
-    method: "POST",
+  if (response && response.status === 200) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function login(username: string, password: string) {
+  const method: Method = "POST";
+  const options = {
+    method: method,
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify({
+    data: {
       username: username,
       password: password,
-    }),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      if (json.token) {
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(json));
-      }
-      return json;
-    })
-    .catch((error) => console.log(error));
-};
+    },
+  };
 
-const logout = () => {
-  localStorage.removeItem(USER_STORAGE_KEY);
-};
+  const loginSuccess = await axiosFetch("login", options).then((json) => {
+    if (json !== null) {
+      userAuth.set(json);
+      localStorage.setItem(localStorageAuthKey, JSON.stringify(json));
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return loginSuccess;
+}
 
-const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
-};
+export function isUserAuthed() {
+  return localUserAuth !== emptyUserAuth;
+}
 
-export default {
-  register,
-  login,
-  logout,
-  getCurrentUser,
-};
+export function logout() {
+  userAuth.set(emptyUserAuth);
+  localStorage.removeItem(localStorageAuthKey);
+}
+
+export function getUserName() {
+  if (isUserAuthed()) {
+    return localUserAuth.username;
+  }
+  return null;
+}
+
+// export async function register(
+//   username: string,
+//   email: string,
+//   password: string
+// ) {
+//   return fetch(API_URL + "/signup", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       username,
+//       email,
+//       password,
+//     }),
+//   });
+// }
