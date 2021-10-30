@@ -2,7 +2,19 @@
 
 It's an app for managing a homebrew club's competitions and user profiles.
 
-Run `yarn dev` in the frontend-svelte folder for the latest frontend. The react one was a legacy experiment I'm still moving code out of.
+## Usage
+
+Create a .env file in the root of this repo with the following:
+
+```sh
+SECRET_KEY=supersecret
+AUTH_PORT=8001
+PROFILE_PORT=8002
+ENTRY_PORT=8003
+COMP_PORT=8004
+```
+
+Run `docker-compose up` and browse to http://localhost:3000/
 
 ## Functionality
 
@@ -26,40 +38,7 @@ Handles entries for competitions, they are owned by users and the status' can be
 
 ### Planned
 
-#### Bulletin/notice board (uservice)
-
-- threads with stickys
-- buy/swap/sell posts?
-- does facebook do this better?
-
-#### Competition scheduling (uservice)
-
-- competition admin only
-- handle scheduling for flights
-- take into account judges and stewards entries
-
-#### club calendar (uservice)
-
-- allow planning and posting of events?
-- does facebook do this better?
-
-#### Inventory/recipe integration with brewfather/beersmith (uservice)
-
-- allows us to share our recipes with each other
-- gives us a nice way to brag about our club and all the yummy beer we make?
-- can check if others have a particular malt/hop you need for a brew day?
-
-#### On tap/bottled (uservice)
-
-- incase people would like to share/swap beers between meets?
-- profile extension?
-
-#### Advertising for sponsors of comps? (uservice)
-
-yes... its a bit of a touchy subject but some benefits might be:
-
-- way to get/keep sponsors on board for comps?
-- organically grow our homebrewing/craft beer community?
+see ./docs/features.md
 
 ## Architecture
 
@@ -85,3 +64,5 @@ docker-compose up
 
 - Patrick Coffey (schlerp)
 - Matt Elvey (melvey)
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=schlerp/hbc)
