@@ -3,6 +3,7 @@
   import LandingPage from "./pages/LandingPage.svelte";
   import Router, { location, push } from "svelte-spa-router";
   import LoginPage from "./pages/LoginPage.svelte";
+  import RegistrationPage from "./pages/RegistrationPage.svelte";
   import AppMenu from "./components/menu/AppMenu.svelte";
   import type { IMenuItem } from "./types";
   import { localStorageAuthKey, logout } from "./services/auth";
@@ -40,6 +41,7 @@
   const routes = {
     "/": LandingPage,
     "/login": LoginPage,
+    "/register": RegistrationPage,
     "/profile/:username?": ProfilePage,
     "/members": MembersPage,
     "/comps": CompetitionsPage,
@@ -84,5 +86,7 @@
     --pal-text-light: #fafafa;
     --pal-text-soft: #cccccc;
     --ff-body: "Montserrat", Oxygen-Sans, "Helvetica Neue", sans-serif;
+		--pal-danger: #ff4949;
+		--pal-super-light: #e8e8e8;
   }
 </style>

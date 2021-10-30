@@ -11,6 +11,7 @@
   export let tabIndex: number = 0;
   export let type: IButtonType = "secondary";
   export let handleClick = () => {};
+	export let disabled = false;
 </script>
 
 <button
@@ -19,6 +20,7 @@
   id={inputId}
   class={type}
   tabindex={tabIndex}
+	disabled={disabled}
 >
   {label}
 </button>
@@ -46,6 +48,10 @@
     background-color: var(--pal-info);
     color: var(--pal-text-dark);
   }
+	button:disabled {
+		background-color: var(--pal-info);
+		color: var(--pal-text-soft);
+	}
   button:active {
     transform: scale(105%);
   }

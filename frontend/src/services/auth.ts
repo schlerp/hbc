@@ -65,20 +65,20 @@ export function getUserName() {
   return null;
 }
 
-// export async function register(
-//   username: string,
-//   email: string,
-//   password: string
-// ) {
-//   return fetch(API_URL + "/signup", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       username,
-//       email,
-//       password,
-//     }),
-//   });
-// }
+export async function register(
+ username: string,
+ email: string,
+ password: string
+) {
+ return fetch(API_URL + "/signup", {
+   method: "POST",
+   headers: {
+     "Content-Type": "application/json",
+   },
+   body: JSON.stringify({
+     username,
+     email,
+     password,
+   }),
+ });
+}

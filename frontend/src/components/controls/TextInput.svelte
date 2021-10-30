@@ -2,7 +2,7 @@
   import genId from "../../utils/genId";
   import type { ITextInputType } from "../../types";
 
-  let control: HTMLInputElement;
+  export let control: HTMLInputElement;
 
   export let value: string = "";
   export let label: string = "Input";
@@ -48,6 +48,9 @@
   input {
     width: 100%;
   }
+	input:invalid {
+		background-color: var(--pal-danger);
+	}
   .form-group {
     margin-bottom: var(--spacing);
     transition: all 0.25s;

@@ -29,8 +29,8 @@ export interface ICompetition {
   description: string;
 }
 
-export const defaultAvatarUrl =
-  "https://randomuser.me/api/portraits/lego/1.jpg";
+export const defaultAvatarUrl = "https://randomuser.me/api/portraits/lego/1.jpg";
+
 export const emptyUserProfile: IUserProfile = {
   username: null,
   firstName: null,
