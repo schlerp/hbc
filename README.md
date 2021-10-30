@@ -2,7 +2,19 @@
 
 It's an app for managing a homebrew club's competitions and user profiles.
 
-Run `yarn dev` in the frontend-svelte folder for the latest frontend. The react one was a legacy experiment I'm still moving code out of.
+## Usage
+
+Create a .env file in the root of this repo with the following:
+
+```sh
+SECRET_KEY=supersecret
+AUTH_PORT=8001
+PROFILE_PORT=8002
+ENTRY_PORT=8003
+COMP_PORT=8004
+```
+
+Run `docker-compose up` and browse to http://localhost:3000/
 
 ## Functionality
 
