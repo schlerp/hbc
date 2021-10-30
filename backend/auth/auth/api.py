@@ -2,8 +2,7 @@ import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.auth.auth.exceptions import NoMatchingUserException
-
+from .exceptions import NoMatchingUserException
 from .provider import AuthProvider
 from .schemas import LoginRequest, AuthUserRegister, LoginResponse
 

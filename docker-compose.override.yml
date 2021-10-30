@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  auth:
+    volumes:
+      - type: bind
+        source: ./backend/auth/auth
+        target: /app/auth
+
+  profile:
+    volumes:
+      - type: bind
+        source: ./backend/profile/profile
+        target: /app/profile
+
+  entry:
+    volumes:
+      - type: bind
+        source: ./backend/entry/entry
+        target: /app/entry
+
+  comp:
+    volumes:
+      - type: bind
+        source: ./backend/comp/comp
+        target: /app/comp
+
+  frontend:
+    ports:
+      - 3000:80
