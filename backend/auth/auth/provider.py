@@ -4,8 +4,7 @@ from typing import List
 import hashlib
 import jwt
 
-from backend.auth.auth.exceptions import NoMatchingUserException
-
+from .exceptions import NoMatchingUserException
 from .store import UserStore
 from .schemas import AuthUserBase, AuthUserStored
 
@@ -82,7 +81,7 @@ class AuthProvider(object):
             {
                 "name": user.username,
                 "scopes": user.scopes,
-                "iat": datetime.utcnow().ctime(),
+                "iat": datetime.utcnow().timestamp(),
             },
             secret_key,
         )
