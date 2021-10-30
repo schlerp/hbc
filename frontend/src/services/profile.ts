@@ -17,6 +17,18 @@ userProfile.subscribe((value) => {
   localUserProfile = value;
 });
 
+
+userAuth.subscribe(async (localUserAuth) => {
+  if (isUserAuthed) {
+    const remoteUserProfile = await getUserProfile();
+    if (remoteUserProfile !== null) {
+      userProfile.set(remoteUserProfile);
+    } else {
+      userProfile.set(emptyUserProfile);
+    }
+  }
+});
+
 export async function axiosFetch(
   endpoint: string,
   options: AxiosRequestConfig,

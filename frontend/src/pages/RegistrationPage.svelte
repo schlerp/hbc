@@ -5,6 +5,7 @@
   import TextArea from "../components/controls/TextArea.svelte";
   import Button from "../components/controls/Button.svelte";
   import { passwordStrength as checkPassword , Result as PasswordResult} from 'check-password-strength'
+	import { register } from '../services/auth';
 
   let username: string = '';
   let password: string = '';
@@ -37,7 +38,7 @@
   }
 
   function handleRegisterUser() {
-    console.log('Register user');
+		register(username, email, password);
   }
 </script>
 

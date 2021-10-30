@@ -70,15 +70,19 @@ export async function register(
  email: string,
  password: string
 ) {
- return fetch(API_URL + "/signup", {
-   method: "POST",
-   headers: {
-     "Content-Type": "application/json",
-   },
-   body: JSON.stringify({
+
+  const method: Method = "POST";
+  const options = {
+    method,
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    data: {
      username,
      email,
      password,
-   }),
- });
+    },
+  };
+ return axiosFetch("signup", options);
 }
