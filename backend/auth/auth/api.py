@@ -1,6 +1,8 @@
 import os
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+
+from backend.auth.auth.exceptions import NoMatchingUserException
 
 from .provider import AuthProvider
 from .schemas import LoginRequest, AuthUserRegister, LoginResponse
@@ -52,3 +54,33 @@ async def signup(
     return auth_prov.add_user(
         register_details.username, register_details.password, register_details.email, []
     )
+
+
+@app.get("/{username}")
+async def get_user(
+    username: str,
+    auth_prov: AuthProvider = Depends(get_prov),
+):
+    try:
+        return auth_prov.get_user(username)
+    except NoMatchingUserException:
+        return HTTPException(400, "User not found!")
+
+
+@app.put("/{username}")
+async def update_user(
+    username: str,
+    updated_user: AuthUserRegister,
+    auth_prov: AuthProvider = Depends(get_prov),
+):
+    if username != updated_user.username:
+        return HTTPException(400, "payload and endpoint mismatched")
+    return auth_prov.update_user(updated_user)
+
+
+@app.delete("/{username}")
+async def update_user(
+    updated_user: AuthUserRegister,
+    auth_prov: AuthProvider = Depends(get_prov),
+):
+    return auth_prov.delete_user(updated_user)

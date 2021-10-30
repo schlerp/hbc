@@ -4,6 +4,7 @@ from typing import List
 import hashlib
 import jwt
 
+from .exceptions import NoMatchingUserException
 from .store import UserStore
 from .schemas import AuthUserBase, AuthUserStored
 
@@ -35,6 +36,12 @@ class AuthProvider(object):
             )
         )
         return True
+
+    def get_user(self, user: AuthUserBase) -> bool:
+        stored_user = self.users.get_user(user.username)
+        if not stored_user:
+            raise NoMatchingUserException
+        return stored_user
 
     def update_user(self, user: AuthUserBase) -> bool:
         stored_user = self.users.get_user(user.username)
@@ -74,7 +81,7 @@ class AuthProvider(object):
             {
                 "name": user.username,
                 "scopes": user.scopes,
-                "iat": datetime.utcnow().ctime(),
+                "iat": datetime.utcnow().timestamp(),
             },
             secret_key,
         )
