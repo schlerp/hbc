@@ -74,8 +74,7 @@ class AuthProvider(object):
 
     @staticmethod
     def _gen_token(
-        user: AuthUserStored,
-        secret_key: str,
+        user: AuthUserStored, secret_key: str, is_refresh: bool = False
     ) -> str:
         return jwt.encode(
             {

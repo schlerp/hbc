@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router";
   import MemberCard from "../components/MemberCard.svelte";
+  import ScrollableDiv from "../components/ScrollableDiv.svelte";
   import { getAllProfiles } from "../services/profile";
   import type { IUserProfile } from "../types";
 
@@ -8,18 +8,14 @@
   getAllProfiles().then((profiles) => {
     memberProfiles = profiles;
   });
-
-  function handleClick(username: string) {
-    push(`/profile/${username}`);
-  }
 </script>
 
 <h2>Current Members</h2>
-<div>
+<ScrollableDiv>
   {#each memberProfiles as profile}
     <MemberCard {profile} />
   {/each}
-</div>
+</ScrollableDiv>
 
 <style>
   h2 {

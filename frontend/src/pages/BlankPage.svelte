@@ -2,7 +2,6 @@
   import BackgroundAnimation from "../components/BackgroundAnimation.svelte";
 
   import { config } from "../config";
-  export const params = null;
   export let title = null;
   export let subtitle = null;
 </script>

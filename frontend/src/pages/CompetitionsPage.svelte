@@ -1,6 +1,7 @@
 <script lang="ts">
   import { push } from "svelte-spa-router";
   import CompetitionCard from "../components/CompetitionCard.svelte";
+  import ScrollableDiv from "../components/ScrollableDiv.svelte";
   import { getAllCompetitions } from "../services/comps";
   import type { ICompetition } from "../types";
 
@@ -15,11 +16,11 @@
 </script>
 
 <h2>Competitions</h2>
-<div>
+<ScrollableDiv>
   {#each competitions as comp}
     <CompetitionCard competition={comp} />
   {/each}
-</div>
+</ScrollableDiv>
 
 <style>
   h2 {
